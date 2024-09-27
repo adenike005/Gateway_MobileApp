@@ -1,20 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import Index from './Index';
+import React, { useEffect } from 'react';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
 export default function App() {
+
+  const [loaded, error] = useFonts({
+    'LatoBlack': require('./assets/Font/Lato-Black.ttf'),
+  });
+
+  useEffect(() => {
+    if (error) {
+      console.error("Error loading fonts", error);
+    }
+  }, [error]);
+
+  if (!loaded) {
+    return <AppLoading />;
+  }
+
+ 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <>
       <StatusBar style="auto" />
-    </View>
+      <Index />
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
